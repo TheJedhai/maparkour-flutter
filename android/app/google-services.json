@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1011034164399",
+    "firebase_url": "https://project-pkspots.firebaseio.com",
+    "project_id": "project-pkspots",
+    "storage_bucket": "project-pkspots.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011034164399:android:c6fb869dc1ca3c1ac5d85a",
+        "android_client_info": {
+          "package_name": "com.jedhai.maparkour"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011034164399-s1qrpckohohjdm8dn9isvr5k8018rhm6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVKi9271uE3sHwhfxwS6u-UjsRw591xdk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011034164399-s1qrpckohohjdm8dn9isvr5k8018rhm6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
