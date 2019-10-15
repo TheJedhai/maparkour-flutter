@@ -21,6 +21,26 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
+  TextEditingController usernameController = new TextEditingController();
+  bool isNewUser = false;
+
+  void changeNewUserStatus() {
+    setState(() {
+      isNewUser = !isNewUser;
+      print(isNewUser);
+    });
+  }
+
+  void submitForm() {
+    if (isNewUser) {
+      //cadastra o usuário
+      print("usuário cadastrado");
+    } else {
+      //loga o usuário
+      print("usuário logado");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +56,26 @@ class _LoginPageState extends State<LoginPage> {
                   Container(
                     height: MediaQuery.of(context).size.height / 3,
                     child: Image.asset('img/maparkor-black.png'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.0),
+                  ),
+                  Visibility(
+                    visible: isNewUser,
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.account_box),
+                        Padding(
+                          padding: EdgeInsets.only(right: 10.0),
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            decoration:
+                                InputDecoration(labelText: "Nome de usuário"),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                   Row(
                     children: <Widget>[
@@ -73,12 +113,12 @@ class _LoginPageState extends State<LoginPage> {
                     elevation: 5.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0)),
-                    onPressed: () {},
-                    child: Text("Login"),
+                    onPressed: submitForm,
+                    child: Text(isNewUser ? "Cadastre-se" : "Login"),
                   ),
                   FlatButton(
-                    onPressed: () {},
-                    child: Text("Criar conta"),
+                    onPressed: changeNewUserStatus,
+                    child: Text(isNewUser ? "Faça login" : "Criar conta"),
                   )
                 ],
               ),

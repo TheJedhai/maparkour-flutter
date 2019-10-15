@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:maparkour/login.dart';
+import 'package:maparkour/mainPage.dart';
 
-void main() => runApp(MainApp());
+void main() {
+  bool test = false;
+  if (test) {
+    runApp(MainApp());
+  } else {
+    runApp(MainPage());
+  }
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
