@@ -47,17 +47,34 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  void _incrementCounter() {
+  void _incrementCounter() async {
+    // DocumentSnapshot snapshot = await Firestore.instance
+    //     .collection('spots')
+    //     .document('DF')
+    //     .collection('Brasília')
+    //     .document("vLR63MiKHaah4y14Mjcv")
+    //     .get();
+    // print(snapshot.data);
+
+    QuerySnapshot snapshot = await Firestore.instance
+        .collection('spots')
+        .document('DF')
+        .collection('Brasília')
+        .getDocuments();
+
+    // print(snapshot.documents);
+
+    for (var doc in snapshot.documents) {
+      print(doc.documentID);
+    }
+
+    // Firestore.instance.collection('picos').document()
+    //     .setData({ 'title': 'test', 'author': 'test' });
+
     setState(() {
-
-      Firestore.instance.collection('picos').document()
-          .setData({ 'title': 'test', 'author': 'test' });
-
-
       _counter++;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
