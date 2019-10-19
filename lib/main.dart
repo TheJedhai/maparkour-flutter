@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:maparkour/login.dart';
 import 'package:maparkour/mainPage.dart';
 
-void main() {
-  bool test = false;
-  if (test) {
+void main() async {
+  final FirebaseAuth fireAuth = FirebaseAuth.instance;
+  FirebaseUser _user = await fireAuth.currentUser();
+  if (_user == null) {
+    print("sem usuário");
     runApp(MainApp());
   } else {
+    print("com  usuário");
     runApp(MainPage());
   }
 }
