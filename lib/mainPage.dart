@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:maparkour/infoPage.dart';
 import 'package:maparkour/login.dart';
 
 void main() {
@@ -65,8 +66,9 @@ class _ListSpotsState extends State<ListSpots> {
 
     for (DocumentSnapshot eachSpot in allSpots.documents) {
       spotsDatabase.add(eachSpot);
-      print(eachSpot.data);
     }
+
+    setState(() {});
 
     // print(spotsDatabase);
   }
@@ -80,7 +82,7 @@ class _ListSpotsState extends State<ListSpots> {
     setState(() {});
   }
 
-  Widget smallCard(String mainImage, String title, String excerpt) {
+  Widget smallCard(int index, String mainImage, String title, String excerpt) {
     return GestureDetector(
         child: Card(
           child: Padding(
@@ -88,8 +90,7 @@ class _ListSpotsState extends State<ListSpots> {
             child: Row(
               children: <Widget>[
                 Container(
-                  width: 160.0,
-                  height: 160.0,
+                  width: MediaQuery.of(context).size.width / 2.6,
                   child: Image.network(
                     mainImage,
                   ),
@@ -122,8 +123,12 @@ class _ListSpotsState extends State<ListSpots> {
           ),
         ),
         onTap: () {
-          // _showContactPage(contact: contacts[index]);
-          print('Gesture Detection funfa');
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => InfoPage(
+                        spot: spotsDatabase[index],
+                      )));
         });
   }
 
@@ -173,7 +178,7 @@ class _ListSpotsState extends State<ListSpots> {
         child: ListView.builder(
           itemCount: spotsDatabase.length,
           itemBuilder: (context, index) {
-            return smallCard(spotsDatabase[index]['img'][0],
+            return smallCard(index, spotsDatabase[index]['img'][0],
                 spotsDatabase[index]['name'], spotsDatabase[index]['excerpt']);
           },
         ),
