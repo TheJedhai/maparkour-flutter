@@ -1,8 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:maparkour/login.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 void main() {
   runApp(InfoPage());
@@ -11,10 +13,6 @@ void main() {
 class InfoPage extends StatefulWidget {
   var spot;
   InfoPage({Key key, @required this.spot}) : super(key: key);
-
-  void teste() {
-    print("teste");
-  }
 
   @override
   _InfoPageState createState() => _InfoPageState();
@@ -30,13 +28,20 @@ List buildImageList(List imagesStings) {
 
 class _InfoPageState extends State<InfoPage> {
   List carouselImages;
-  int _current = 0;
+  // LatLng _center;
   @override
   void initState() {
     super.initState();
-
     carouselImages = buildImageList(widget.spot['img']);
   }
+
+  Completer<GoogleMapController> _controller = Completer();
+
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+  }
+
+  static final MarkerId markerId = MarkerId('mainLocation');
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +63,7 @@ class _InfoPageState extends State<InfoPage> {
               child: DrawerHeader(
                 child: Text(
                   userName,
-                  style: TextStyle(color: Colors.white),
+                  // style: TextStyle(color: Colors.white),
                 ),
                 decoration: BoxDecoration(
                   color: Colors.blueAccent[700],
@@ -114,7 +119,31 @@ class _InfoPageState extends State<InfoPage> {
                 child: Text('Arraste para o lado para carregar mais fotos'),
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: 0.0),
+                padding: EdgeInsets.only(bottom: 30.0),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height / 3,
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: GoogleMap(
+                  onMapCreated: _onMapCreated,
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(widget.spot['coordinates'].latitude,
+                        widget.spot['coordinates'].longitude),
+                    zoom: 17.0,
+                  ),
+                  markers: Set<Marker>.of({
+                    Marker(
+                      markerId: markerId,
+                      position: LatLng(widget.spot['coordinates'].latitude,
+                          widget.spot['coordinates'].longitude),
+                      infoWindow:
+                          InfoWindow(title: widget.spot['name'], snippet: '*'),
+                      onTap: () {
+                        // _onMarkerTapped(markerId);
+                      },
+                    )
+                  }),
+                ),
               )
             ],
           ),

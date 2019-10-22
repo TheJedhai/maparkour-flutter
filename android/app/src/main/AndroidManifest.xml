@@ -10,6 +10,8 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="maparkour"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyCVKi9271uE3sHwhfxwS6u-UjsRw591xdk"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
