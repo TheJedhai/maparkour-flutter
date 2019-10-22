@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:maparkour/login.dart';
@@ -143,7 +145,26 @@ class _InfoPageState extends State<InfoPage> {
                       },
                     )
                   }),
+                  gestureRecognizers: Set()
+                    ..add(Factory<PanGestureRecognizer>(
+                        () => PanGestureRecognizer()))
+                    ..add(Factory<ScaleGestureRecognizer>(
+                        () => ScaleGestureRecognizer()))
+                    ..add(Factory<TapGestureRecognizer>(
+                        () => TapGestureRecognizer()))
+                    ..add(Factory<VerticalDragGestureRecognizer>(
+                        () => VerticalDragGestureRecognizer())),
                 ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 30.0),
+              ),
+              Row(
+                children: <Widget>[
+                  Text('público'),
+                  Text('iluminação'),
+                  Text('coberto'),
+                ],
               )
             ],
           ),
